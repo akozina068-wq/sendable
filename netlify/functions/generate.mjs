@@ -1,5 +1,3 @@
-cat /tmp/sb/netlify/functions/generate.mjs
-Response
 // Sendable — turns a CV + a job ad into ready application text with Claude.
 // Needs ANTHROPIC_API_KEY in Netlify → Site configuration → Environment variables.
 // Optional: SB_MODEL (defaults below).
