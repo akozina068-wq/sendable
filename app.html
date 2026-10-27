@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Write your application · Sendable</title>
+<link rel="icon" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Source+Sans+3:wght@400;600&display=swap">
+<link rel="stylesheet" href="banner.css">
+<script src="pixel.js"></script>
+<style>
+:root{--blue:#2E2AE6;--lime:#DFFB4B;--ink:#0E1030;--paper:#fff;--line:#E3E3F2;--muted:#5B5B78;--bg:#F6F6FD}
+*{box-sizing:border-box}
+body{margin:0;font:400 17px/1.55 "Source Sans 3","Segoe UI",sans-serif;color:var(--ink);background:var(--paper)}
+.app{max-width:760px;margin-inline:auto;padding:0 20px 64px}
+.display{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;letter-spacing:-.02em}
+header.top{display:flex;align-items:center;justify-content:space-between;padding:20px 0}
+.brand{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.4rem}.brand span{color:var(--blue)}
+.back{color:var(--muted);text-decoration:none;font-weight:600}
+h1{font-size:clamp(1.5rem,3.6vw,2rem);margin:.2em 0 .1em}
+.intro{color:var(--muted);margin:0 0 20px}
+label{display:block;font-weight:600;margin:16px 0 6px}
+textarea{width:100%;font:inherit;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:14px;resize:vertical}
+#cv{min-height:150px}#job{min-height:120px}
+textarea:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.go{margin-top:16px;background:var(--blue);color:#fff;border:0;border-radius:999px;padding:15px 28px;font:800 1.08rem "Bricolage Grotesque",sans-serif;cursor:pointer}
+.go:disabled{opacity:.6}
+.hint{font-size:.9rem;color:var(--muted);margin-top:10px}
+.err{color:#C0392B;font-weight:600;margin-top:12px}
+.result{margin-top:26px;display:none}
+.card{border:1.5px solid var(--line);border-radius:12px;padding:20px;margin-bottom:16px;background:#fff}
+.card .h{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:8px}
+.card h3{font-family:"Bricolage Grotesque",sans-serif;margin:0;font-size:1.08rem}
+.card pre{white-space:pre-wrap;font:inherit;margin:0;color:#23233f}
+.copy{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:6px 14px;font:600 .85rem "Source Sans 3",sans-serif;cursor:pointer;white-space:nowrap}
+.pay{margin-top:10px;border:2px solid var(--blue);border-radius:16px;padding:26px;background:var(--bg);display:none}
+.pay h2{font-family:"Bricolage Grotesque",sans-serif;margin:0 0 6px;font-size:1.5rem}
+.pay .price{font-family:"Bricolage Grotesque",sans-serif;font-size:2rem;font-weight:800;margin:10px 0 4px}
+.pay .price small{display:block;font:400 1rem "Source Sans 3",sans-serif;color:var(--muted)}
+.pay ul{margin:12px 0 18px;padding-left:1.1em}.pay li+li{margin-top:4px}
+.buy{display:inline-block;background:var(--lime);color:var(--ink);font:800 1.05rem "Bricolage Grotesque",sans-serif;border-radius:999px;padding:15px 28px;text-decoration:none}
+.fine{font-size:.86rem;color:var(--muted);margin-top:12px}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid #fff;border-right-color:transparent;border-radius:50%;animation:s .8s linear infinite;vertical-align:-2px;margin-right:8px}
+@keyframes s{to{transform:rotate(360deg)}}
+footer{border-top:1px solid var(--line);padding:22px 0 0;color:var(--muted);font-size:.86rem}
+footer a{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand">Sendable<span>.</span></div>
+    <a class="back" href="/">← Home</a>
+  </header>
+
+  <h1 class="display" id="title">Write your first application — free</h1>
+  <p class="intro" id="intro">Paste your CV once and the job advert. You get the cover letter, the “why us” answer and a clean recap of your experience. Check it, then send it yourself.</p>
+
+  <label for="cv">Your CV <span style="color:var(--muted);font-weight:400">(paste the whole thing — roles, dates, education)</span></label>
+  <textarea id="cv" placeholder="Paste your CV here…"></textarea>
+
+  <label for="job">The job advert <span style="color:var(--muted);font-weight:400">(paste the listing you’re applying to)</span></label>
+  <textarea id="job" placeholder="Paste the job description here…"></textarea>
+
+  <button class="go" id="go">Write my application</button>
+  <p class="hint">Nothing is submitted anywhere. You get text to check and paste yourself.</p>
+  <p class="err" id="err" hidden></p>
+
+  <div class="result" id="result">
+    <div class="card">
+      <div class="h"><h3>Cover letter</h3><button class="copy" data-for="out-letter">Copy</button></div>
+      <pre id="out-letter"></pre>
+    </div>
+    <div class="card">
+      <div class="h"><h3>“Why do you want to work here?”</h3><button class="copy" data-for="out-why">Copy</button></div>
+      <pre id="out-why"></pre>
+    </div>
+    <div class="card">
+      <div class="h"><h3>Your experience — reusable recap</h3><button class="copy" data-for="out-sum">Copy</button></div>
+      <pre id="out-sum"></pre>
+    </div>
+  </div>
+
+  <div class="pay" id="pay">
+    <p style="font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:0">That was your free one</p>
+    <h2>Do every application this fast.</h2>
+    <div class="price">£6 / week <small>cancel any time, in one tap</small></div>
+    <ul>
+      <li>Unlimited applications — a fresh letter and answers for every job</li>
+      <li>Grounded only in your CV, never invented</li>
+      <li>British English, tuned for UK roles</li>
+    </ul>
+    <a class="buy" id="buy" href="#">Get Sendable · £6/week</a>
+    <p class="fine">Cancel in one tap. Not useful? Reply to your receipt within 7 days for a full refund.</p>
+  </div>
+
+  <footer>
+    Sendable prepares application text from what you paste. You review and submit every application yourself. Not a recruitment agency; no job outcome guaranteed. · <a href="/privacy">Privacy</a>
+  </footer>
+</div>
+
+<script>
+/* ---- Settings ---- */
+var STRIPE_LINK = 'https://buy.stripe.com/9B64gB8bffrc4ZW7rC0Ny02';
+
+var $ = function(id){ return document.getElementById(id); };
+function paid(){ try { return localStorage.getItem('sb_paid') === 'yes'; } catch(e){ return false; } }
+
+if (paid()) {
+  $('title').textContent = 'Write your application';
+  $('intro').textContent = 'Paste your CV and the job advert. You get the cover letter, the “why us” answer and a clean recap. Check it, then send it yourself.';
+}
+
+$('go').addEventListener('click', async function(){
+  var btn = this, cv = $('cv').value.trim(), job = $('job').value.trim();
+  $('err').hidden = true;
+  if (cv.length < 80){ showErr('Paste a bit more of your CV so there is something to work from.'); return; }
+  if (job.length < 40){ showErr('Paste the job advert too, so we can tailor it.'); return; }
+  btn.disabled = true; btn.innerHTML = '<span class="spin"></span>Writing…';
+  try {
+    var r = await fetch('/api/generate', { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify({ cv: cv, job: job }) });
+    var d = await r.json();
+    if (!r.ok) throw new Error(d.error || 'Something went wrong. Try again.');
+    if (d.note){ showErr(d.note); return; }
+    $('out-letter').textContent = d.cover_letter;
+    $('out-why').textContent = d.why_us;
+    $('out-sum').textContent = d.summary;
+    $('result').style.display = 'block';
+    if (!paid()) { $('pay').style.display = 'block'; prCount('generated'); }
+    $('result').scrollIntoView({behavior:'smooth', block:'start'});
+  } catch(e){ showErr(e.message); }
+  finally { btn.disabled = false; btn.textContent = 'Write my application'; }
+});
+
+function showErr(m){ $('err').textContent = m; $('err').hidden = false; }
+
+/* copy buttons */
+Array.prototype.forEach.call(document.querySelectorAll('.copy'), function(b){
+  b.addEventListener('click', function(){
+    var t = $(b.getAttribute('data-for')).textContent;
+    navigator.clipboard.writeText(t).then(function(){ var o=b.textContent; b.textContent='Copied'; setTimeout(function(){b.textContent=o;},1200); });
+  });
+});
+
+/* checkout */
+$('buy').href = STRIPE_LINK;
+$('buy').addEventListener('click', function(){ prCount('buy'); prTrack('track','InitiateCheckout',{value:6,currency:'GBP'}); });
+</script>
+</body>
+</html>

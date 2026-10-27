@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>You're in · Sendable</title>
+<link rel="icon" href="favicon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Source+Sans+3:wght@400;600&display=swap">
+<link rel="stylesheet" href="banner.css">
+<script>try{localStorage.setItem('sb_paid','yes')}catch(e){}</script>
+<script src="pixel.js"></script>
+<style>
+:root{--blue:#2E2AE6;--lime:#DFFB4B;--ink:#0E1030;--line:#E3E3F2;--muted:#5B5B78;--bg:#F6F6FD}
+body{margin:0;font:400 17px/1.55 "Source Sans 3","Segoe UI",sans-serif;color:var(--ink)}
+.app{max-width:640px;margin-inline:auto;padding:0 20px 64px}
+.brand{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.4rem;padding:20px 0}.brand span{color:var(--blue)}
+.eyebrow{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+h1{font-family:"Bricolage Grotesque",sans-serif;font-size:clamp(1.8rem,5vw,2.6rem);font-weight:800;letter-spacing:-.02em;margin:.2em 0 .4em}
+.btn{display:inline-block;background:var(--blue);color:#fff;font:800 1.05rem "Bricolage Grotesque",sans-serif;border-radius:999px;padding:15px 28px;text-decoration:none}
+.panel{background:var(--bg);border-radius:12px;padding:22px;margin-top:22px}
+.panel ol{padding-left:1.2em;color:var(--muted);margin:0}.panel li+li{margin-top:6px}
+.fine{font-size:.86rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="brand">Sendable<span>.</span></div>
+  <p class="eyebrow">Payment received</p>
+  <h1>You’re in. Go write the next one.</h1>
+  <a class="btn" href="/app">Write an application</a>
+  <div class="panel">
+    <ol>
+      <li>Your Stripe receipt is on its way to your inbox.</li>
+      <li>Sendable is unlocked in this browser — bookmark the tool and come back on the same phone or laptop.</li>
+      <li>Changed device or cleared your browser? Reply to your receipt and we’ll sort it.</li>
+    </ol>
+    <p class="fine" style="margin-top:14px">Not useful? Reply to your receipt within 7 days for a full refund.</p>
+  </div>
+</div>
+<script>prTrack('track','Purchase',{value:6,currency:'GBP'});</script>
+</body>
+</html>
