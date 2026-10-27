@@ -1,6 +1,3 @@
-Request
-cat /tmp/sb/netlify/functions/count.mjs
-Response
 // Sendable — funnel counter. No cookies, no IPs, no personal data.
 // POST /api/event  {"e":"home"}  → stores one row
 // GET  /api/stats               → totals per step, per day
